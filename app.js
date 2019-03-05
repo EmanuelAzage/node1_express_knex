@@ -59,12 +59,10 @@ app.get('/api/artists', function(request, response){
 
   if(filter){
     connection('artists').where('Name','like','%'+filter+'%').then((artists) => {
-      console.log(artists.map(convert)); // testing
       response.json(artists.map(convert));
     });
   }else{
     connection.select().from('artists').then((artists) => {
-      console.log(artists.map(convert)); // testing
       response.json(artists.map(convert));
     });
   }
