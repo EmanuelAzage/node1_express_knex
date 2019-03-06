@@ -1,10 +1,4 @@
 {
-  "dependencies": {
-    "express": "4.16.4",
-    "knex": "0.16.3",
-    "nodemon": "^1.18.10",
-    "sqlite3": "^4.0.6"
-  },
   "name": "itp-405-node1",
   "version": "1.0.0",
   "description": "itp405 assignment.",
@@ -18,5 +12,14 @@
     "chinook"
   ],
   "author": "Emanuel-Azage",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.16.4",
+    "knex": "0.16.3",
+    "nodemon": "^1.18.10",
+    "sqlite3": "^4.0.6"
+  },
+  "engines": {
+    "node": "11.10.0"
+  }
 }
