@@ -4,5 +4,19 @@
     "knex": "0.16.3",
     "nodemon": "^1.18.10",
     "sqlite3": "^4.0.6"
-  }
+  },
+  "name": "itp-405-node1",
+  "version": "1.0.0",
+  "description": "itp405 assignment.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "chinook"
+  ],
+  "author": "Emanuel-Azage",
+  "license": "MIT"
 }
