@@ -1,9 +1,18 @@
-let express = require('express');
-let knex = require('knex');
+const express = require('express');
+const knex = require('knex');
+const Sequelize = require('sequelize');
+const bodyParser = require('body-parser');
 
-let app = express();
+const app = express();
+const port = process.env.PORT || 8000;
 
-let port = process.env.PORT || 8000;
+const sequelize = require('./database/sequelize');
+
+const Track = require('./models/track');
+
+const { Op } = Sequelize;
+
+let knex_db_filepath = "database/chinhook.db";
 
 // app.use(function(req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
@@ -11,12 +20,39 @@ let port = process.env.PORT || 8000;
 //   next();
 // });
 
+app.use(bodyParser.json());
+
+app.patch('/api/tracks/:id', function(req, res){
+  let { id } = req.params;
+
+  Track.findByPk(id).then((track) => {
+    if (track){
+      track.update(req.body).then((track) => {
+        res.status(200).json(track);
+      }, (validation) => {
+
+        res.status(422).json({
+          errors: validation.errors.map((error) => {
+            return {
+              attribute: error.path,
+              message: error.message
+            };
+          })
+        });
+
+      });
+    } else {
+      res.status(404).send();
+    }
+  });
+});
+
 app.get('/api/genres', function(request, response){
 
   let connection = knex({
     client: 'sqlite3',
     connection: {
-      filename: 'chinook.db'
+      filename: knex_db_filepath
     }
   });
 
@@ -32,7 +68,7 @@ app.get('/api/genres/:id', function(request, response){
   let connection = knex({
     client: 'sqlite3',
     connection: {
-      filename: 'chinook.db'
+      filename: knex_db_filepath
     }
   });
 
