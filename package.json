@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "forever start app.js; git checkout database/chinhook.db; ./node_modules/jest/bin/jest.js; forever stop app.js; git checkout database/chinhook.db"
   },
   "keywords": [
     "node",
@@ -21,6 +21,11 @@
     "nodemon": "^1.18.10",
     "sequelize": "^5.1.1",
     "sqlite3": "^4.0.6"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "frisby": "^2.1.1",
+    "jest": "^24.6.0"
   },
   "engines": {
     "node": "11.10.0"
