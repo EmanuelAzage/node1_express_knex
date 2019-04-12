@@ -2,6 +2,8 @@ const express = require('express');
 const knex = require('knex');
 const Sequelize = require('sequelize');
 const bodyParser = require('body-parser');
+const MongoClient = require('mongodb').MongoClient;
+
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -21,6 +23,28 @@ let knex_db_filepath = "database/chinhook.db";
 // });
 
 app.use(bodyParser.json());
+
+app.get('/db', (req, res) => {
+
+  const uri = "mongodb+srv://eazage123:eazage123@cluster0-7hfsd.mongodb.net/test?retryWrites=true";
+  const client = new MongoClient(uri, { useNewUrlParser: true });
+  client.connect(function (err) {
+    const collection = client.db("test").collection("users");
+
+    if(err) throw err;
+
+    collection.find().toArray(function(err, docs) {
+      if(err) throw err;
+
+      console.log(docs);
+
+      res.json(docs);
+      client.close();
+    });
+
+  });
+
+});
 
 app.patch('/api/tracks/:id', function(req, res){
   let { id } = req.params;
